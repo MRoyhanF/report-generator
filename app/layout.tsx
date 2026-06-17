@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "Student Report Generator",
   description: "Generate weekly student progress reports in seconds.",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/tm.jpg",
   },
 };
 
