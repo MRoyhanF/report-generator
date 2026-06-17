@@ -1,4 +1,4 @@
-import { ReportFormData, ReportLength, ObsIndex } from "@/types";
+import { ReportFormData } from "@/types";
 
 // ── English sentence pools ───────────────────────────────────────────────────
 

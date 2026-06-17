@@ -10,7 +10,8 @@ export function Navbar() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { setMounted(true); }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-sm border-b border-border">
