@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "Bash(npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --yes)",
-      "Bash(cd \"c:\\\\Users\\\\ASUS\\\\Documents\\\\Code\\\\Next\\\\report-generator\" && mv CLAUDE.md ../CLAUDE.md.bak && npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --yes 2>&1 | tail -20 && mv ../CLAUDE.md.bak CLAUDE.md)"
+      "Bash(cd \"c:\\\\Users\\\\ASUS\\\\Documents\\\\Code\\\\Next\\\\report-generator\" && mv CLAUDE.md ../CLAUDE.md.bak && npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --yes 2>&1 | tail -20 && mv ../CLAUDE.md.bak CLAUDE.md)",
+      "Bash(npx shadcn@latest init --yes)",
+      "Bash(npx shadcn@latest init -d)",
+      "Bash(npx shadcn@latest add label input textarea select checkbox badge card separator)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(npm install *)",
+      "Bash(node -e ' *)",
+      "Bash(npm uninstall *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\ASUS\\Documents\\Code\\Next"

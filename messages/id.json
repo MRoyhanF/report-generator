@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "title": "Generator Laporan Siswa"
+  },
+  "form": {
+    "studentInfo": "Informasi Siswa",
+    "learningInfo": "Materi & Aktivitas",
+    "observations": "Observasi",
+    "reportSettings": "Pengaturan Laporan",
+    "studentName": "Nama Siswa",
+    "teacherName": "Nama Teacher",
+    "classLevel": "Kelas / Level",
+    "reportPeriod": "Periode Laporan",
+    "topicLearned": "Materi Dipelajari",
+    "project": "Aktivitas / Project",
+    "teacherNotes": "Catatan Teacher",
+    "teacherNotesOptional": "(opsional)",
+    "teacherNotesPlaceholder": "Tambahkan catatan atau observasi khusus...",
+    "understanding": "Pemahaman",
+    "participation": "Partisipasi",
+    "focus": "Fokus",
+    "taskCompletion": "Penyelesaian Tugas",
+    "confidence": "Kepercayaan Diri",
+    "challenges": "Tantangan",
+    "strengths": "Kekuatan",
+    "reportLength": "Panjang Laporan",
+    "reportLengthDesc": ["~1 paragraf", "~2 paragraf", "~3 paragraf"],
+    "writingStyle": "Gaya Penulisan",
+    "writingStyleDesc": ["Terstruktur", "Personal", "Seimbang"],
+    "multiSelectHint": "boleh pilih lebih dari 1",
+    "placeholders": {
+      "studentName": "cth. Aira Putri",
+      "teacherName": "cth. Ms. Sarah",
+      "classLevel": "cth. Grade 3",
+      "reportPeriod": "cth. Minggu 1 – Juni 2026",
+      "topicLearned": "cth. Pecahan",
+      "project": "cth. Puzzle pecahan berkelompok"
+    }
+  },
+  "options": {
+    "understanding": ["Sangat Baik", "Baik", "Perlu Dukungan"],
+    "participation": ["Aktif", "Cukup Aktif", "Pasif"],
+    "focus": ["Sangat Fokus", "Cukup Fokus", "Perlu Diingatkan"],
+    "taskCompletion": ["Selesai", "Hampir Selesai", "Sebagian"],
+    "confidence": ["Percaya Diri", "Berkembang", "Perlu Dorongan"],
+    "challenges": ["Perlu Latihan Lebih", "Eksplorasi", "Fokus", "Adaptasi Membaca", "Komunikasi", "Mengikuti Instruksi"],
+    "strengths": ["Kreatif", "Rasa Ingin Tahu Tinggi", "Mandiri", "Pantang Menyerah", "Cepat Belajar", "Kolaboratif"],
+    "reportLength": ["Singkat", "Standar", "Mendetail"],
+    "writingStyle": ["Formal", "Hangat", "Profesional"]
+  },
+  "buttons": {
+    "generate": "Buat Laporan",
+    "regenerate": "Buat Ulang",
+    "polish": "✨ Rapikan Bahasa",
+    "copy": "Salin",
+    "download": "Unduh",
+    "reset": "Reset"
+  },
+  "preview": {
+    "title": "Hasil Laporan",
+    "empty": "Laporan akan muncul di sini setelah form diisi dan dikirim.",
+    "placeholder": "Laporan akan muncul di sini..."
+  },
+  "validation": {
+    "fillRequired": "Isi semua kolom wajib untuk membuat laporan."
+  }
+}

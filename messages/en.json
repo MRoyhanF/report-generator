@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "title": "Student Report Generator"
+  },
+  "form": {
+    "studentInfo": "Student Information",
+    "learningInfo": "Topic & Activity",
+    "observations": "Observations",
+    "reportSettings": "Report Settings",
+    "studentName": "Student Name",
+    "teacherName": "Teacher Name",
+    "classLevel": "Class / Level",
+    "reportPeriod": "Report Period",
+    "topicLearned": "Topic Learned",
+    "project": "Activity / Project",
+    "teacherNotes": "Teacher Notes",
+    "teacherNotesOptional": "(optional)",
+    "teacherNotesPlaceholder": "Add any specific notes or observations...",
+    "understanding": "Understanding",
+    "participation": "Participation",
+    "focus": "Focus",
+    "taskCompletion": "Task Completion",
+    "confidence": "Confidence",
+    "challenges": "Challenges",
+    "strengths": "Strengths",
+    "reportLength": "Report Length",
+    "reportLengthDesc": ["~1 paragraph", "~2 paragraphs", "~3 paragraphs"],
+    "writingStyle": "Writing Style",
+    "writingStyleDesc": ["Structured", "Personal", "Balanced"],
+    "multiSelectHint": "can select multiple",
+    "placeholders": {
+      "studentName": "e.g. Aira Putri",
+      "teacherName": "e.g. Ms. Sarah",
+      "classLevel": "e.g. Grade 3",
+      "reportPeriod": "e.g. Week 1 – June 2026",
+      "topicLearned": "e.g. Fractions",
+      "project": "e.g. Group fraction puzzle activity"
+    }
+  },
+  "options": {
+    "understanding": ["Excellent", "Good", "Needs Support"],
+    "participation": ["Active", "Moderate", "Passive"],
+    "focus": ["Excellent", "Moderate", "Needs Reminding"],
+    "taskCompletion": ["Complete", "Mostly Complete", "Partial"],
+    "confidence": ["Confident", "Developing", "Needs Encouragement"],
+    "challenges": ["Needs More Practice", "Exploration", "Focus", "Reading Adaptation", "Communication", "Following Instructions"],
+    "strengths": ["Creative", "Curious", "Independent", "Persistent", "Fast Learner", "Collaborative"],
+    "reportLength": ["Short", "Standard", "Detailed"],
+    "writingStyle": ["Formal", "Warm", "Professional"]
+  },
+  "buttons": {
+    "generate": "Generate Report",
+    "regenerate": "Regenerate",
+    "polish": "✨ Polish Writing",
+    "copy": "Copy",
+    "download": "Download",
+    "reset": "Reset"
+  },
+  "preview": {
+    "title": "Generated Report",
+    "empty": "Your report will appear here after filling in the form.",
+    "placeholder": "Report will appear here..."
+  },
+  "validation": {
+    "fillRequired": "Fill in all required fields to generate a report."
+  }
+}
