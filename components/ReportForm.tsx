@@ -33,7 +33,7 @@ function Field({
 }) {
   return (
     <div className="space-y-1.5">
-      <Label htmlFor={id} className="text-[13px] font-medium text-[#171717]">
+      <Label htmlFor={id} className="text-[13px] font-medium text-foreground">
         {label}{required && <Required />}
       </Label>
       <Input
@@ -41,7 +41,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="text-[13px] h-9 border-[#E7E5E4] bg-white rounded-lg placeholder:text-[#9CA3AF] transition-subtle hover:border-[#16A34A]/50 focus-visible:ring-[#16A34A]/30"
+        className="text-[13px] h-9 border-border bg-background rounded-lg placeholder:text-muted-foreground transition-subtle hover:border-primary/50 focus-visible:ring-primary/30"
       />
     </div>
   );
@@ -49,14 +49,14 @@ function Field({
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[13px] font-semibold uppercase tracking-widest text-[#6B7280] mb-4">
+    <p className="text-[13px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">
       {children}
     </p>
   );
 }
 
 function Divider() {
-  return <div className="border-t border-[#E7E5E4] my-6" />;
+  return <div className="border-t border-border my-6" />;
 }
 
 function CardPicker<T extends string>({
@@ -78,7 +78,7 @@ function CardPicker<T extends string>({
 }) {
   return (
     <div className="space-y-2">
-      <Label className="text-[13px] font-medium text-[#171717]">
+      <Label className="text-[13px] font-medium text-foreground">
         {label}{required && <Required />}
       </Label>
       <div className="grid grid-cols-3 gap-2">
@@ -91,13 +91,13 @@ function CardPicker<T extends string>({
               onClick={() => onSelect(keys[idx])}
               className={`flex flex-col items-center justify-center py-3 px-2 rounded-xl border text-[12px] font-medium transition-subtle ${
                 active
-                  ? "bg-[#F0FDF4] border-[#16A34A] text-[#15803D]"
-                  : "bg-white border-[#E7E5E4] text-[#6B7280] hover:border-[#16A34A]/50 hover:text-[#171717]"
+                  ? "bg-secondary border-primary text-secondary-foreground"
+                  : "bg-card border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
               }`}
             >
               <span>{opt}</span>
               {descriptions && (
-                <span className={`text-[11px] mt-0.5 font-normal ${active ? "text-[#16A34A]/70" : "text-[#9CA3AF]"}`}>
+                <span className={`text-[11px] mt-0.5 font-normal ${active ? "text-primary/70" : "text-muted-foreground"}`}>
                   {descriptions[idx]}
                 </span>
               )}
@@ -148,18 +148,18 @@ export function ReportForm({ values, onChange }: Props) {
       <Divider />
 
       <div className="space-y-1.5">
-        <Label htmlFor="teacherNotes" className="text-[13px] font-medium text-[#171717]">
+        <Label htmlFor="teacherNotes" className="text-[13px] font-medium text-foreground">
           {t.form.teacherNotes}{" "}
-          <span className="text-[#9CA3AF] font-normal">{t.form.teacherNotesOptional}</span>
+          <span className="text-muted-foreground font-normal">{t.form.teacherNotesOptional}</span>
         </Label>
         <Textarea
           id="teacherNotes"
           value={values.teacherNotes}
           onChange={(e) => set("teacherNotes", e.target.value.slice(0, 150))}
           placeholder={t.form.teacherNotesPlaceholder}
-          className="text-[13px] border-[#E7E5E4] bg-white rounded-lg placeholder:text-[#9CA3AF] resize-none transition-subtle hover:border-[#16A34A]/50 focus-visible:ring-[#16A34A]/30 min-h-20"
+          className="text-[13px] border-border bg-background rounded-lg placeholder:text-muted-foreground resize-none transition-subtle hover:border-primary/50 focus-visible:ring-primary/30 min-h-20"
         />
-        <p className="text-[12px] text-[#9CA3AF] text-right">
+        <p className="text-[12px] text-muted-foreground text-right">
           {values.teacherNotes.length}/150
         </p>
       </div>

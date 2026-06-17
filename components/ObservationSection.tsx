@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/lib/i18n";
 import { Label } from "@/components/ui/label";
-import { Observations, ObsIndex, ReportLength, WritingStyle } from "@/types";
+import { Observations, ObsIndex } from "@/types";
 
 interface Props {
   values: Observations;
@@ -30,10 +30,10 @@ function SegmentedPill({
 }) {
   return (
     <div className="space-y-1.5">
-      <Label className="text-[13px] font-medium text-[#171717]">
+      <Label className="text-[13px] font-medium text-foreground">
         {label}{required && <Required />}
       </Label>
-      <div className="flex rounded-lg border border-[#E7E5E4] overflow-hidden bg-white">
+      <div className="flex rounded-lg border border-border overflow-hidden bg-card">
         {options.map((opt, idx) => {
           const active = value === idx;
           return (
@@ -41,8 +41,8 @@ function SegmentedPill({
               key={idx}
               type="button"
               onClick={() => onSelect(idx as ObsIndex)}
-              className={`flex-1 py-2 text-[12px] font-medium transition-subtle border-r last:border-r-0 border-[#E7E5E4] ${
-                active ? colors[idx] : "text-[#6B7280] hover:bg-[#F5F5F4] hover:text-[#171717]"
+              className={`flex-1 py-2 text-[12px] font-medium transition-subtle border-r last:border-r-0 border-border ${
+                active ? colors[idx] : "text-muted-foreground hover:bg-muted hover:text-foreground"
               }`}
             >
               {opt}
@@ -72,10 +72,10 @@ function ChipGroup({
   return (
     <div className="space-y-2">
       <div className="flex items-baseline gap-2">
-        <Label className="text-[13px] font-medium text-[#171717]">
+        <Label className="text-[13px] font-medium text-foreground">
           {label}{required && <Required />}
         </Label>
-        <span className="text-[11px] text-[#9CA3AF]">{multiHint}</span>
+        <span className="text-[11px] text-muted-foreground">{multiHint}</span>
       </div>
       <div className="flex flex-wrap gap-2">
         {options.map((opt, idx) => {
@@ -87,8 +87,8 @@ function ChipGroup({
               onClick={() => onToggle(idx)}
               className={`px-3 py-1.5 text-[12px] font-medium rounded-full border transition-subtle ${
                 active
-                  ? "bg-[#16A34A] text-white border-[#16A34A]"
-                  : "bg-white text-[#6B7280] border-[#E7E5E4] hover:border-[#16A34A] hover:text-[#16A34A]"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card text-muted-foreground border-border hover:border-primary hover:text-primary"
               }`}
             >
               {opt}

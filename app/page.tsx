@@ -68,14 +68,14 @@ function PageContent() {
   const valid = isFormValid(formData);
 
   return (
-    <div className="min-h-screen bg-[#FAFAF8]">
+    <div className="min-h-screen bg-background">
       <Navbar />
 
       <main className="max-w-360 mx-auto px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
           {/* Left: Form — 2 cols */}
           <section className="lg:col-span-2">
-            <div className="bg-white border border-[#E7E5E4] rounded-2xl p-7">
+            <div className="bg-card border border-border rounded-2xl p-7">
               <ReportForm values={formData} onChange={setFormData} />
 
               <div className="mt-8">
@@ -83,7 +83,7 @@ function PageContent() {
                   type="button"
                   onClick={handleGenerate}
                   disabled={!valid || loading}
-                  className="w-full h-10 text-[14px] font-medium bg-[#171717] text-white rounded-xl transition-subtle hover:bg-[#2d2d2d] disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-full h-10 text-[14px] font-medium bg-foreground text-background rounded-xl transition-subtle hover:opacity-80 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {loading ? "Generating..." : t.buttons.generate}
                 </button>
@@ -98,7 +98,7 @@ function PageContent() {
 
           {/* Right: Preview — 3 cols */}
           <section className="lg:col-span-3 lg:sticky lg:top-20 lg:self-start">
-            <div className="bg-white border border-[#E7E5E4] rounded-2xl p-7">
+            <div className="bg-card border border-border rounded-2xl p-7">
               {error && (
                 <p className="mb-3 text-[12px] text-red-500">{error}</p>
               )}

@@ -1,6 +1,6 @@
 {
   "nav": {
-    "title": "Student Report Generator"
+    "title": "Student Report Generator Timedoor Academy - Jambi"
   },
   "form": {
     "studentInfo": "Student Information",
@@ -24,9 +24,17 @@
     "challenges": "Challenges",
     "strengths": "Strengths",
     "reportLength": "Report Length",
-    "reportLengthDesc": ["~1 paragraph", "~2 paragraphs", "~3 paragraphs"],
+    "reportLengthDesc": [
+      "~1 paragraph",
+      "~2 paragraphs",
+      "~3 paragraphs"
+    ],
     "writingStyle": "Writing Style",
-    "writingStyleDesc": ["Structured", "Personal", "Balanced"],
+    "writingStyleDesc": [
+      "Structured",
+      "Personal",
+      "Balanced"
+    ],
     "multiSelectHint": "can select multiple",
     "placeholders": {
       "studentName": "e.g. Aira Putri",
@@ -38,15 +46,57 @@
     }
   },
   "options": {
-    "understanding": ["Excellent", "Good", "Needs Support"],
-    "participation": ["Active", "Moderate", "Passive"],
-    "focus": ["Excellent", "Moderate", "Needs Reminding"],
-    "taskCompletion": ["Complete", "Mostly Complete", "Partial"],
-    "confidence": ["Confident", "Developing", "Needs Encouragement"],
-    "challenges": ["Needs More Practice", "Exploration", "Focus", "Reading Adaptation", "Communication", "Following Instructions"],
-    "strengths": ["Creative", "Curious", "Independent", "Persistent", "Fast Learner", "Collaborative"],
-    "reportLength": ["Short", "Standard", "Detailed"],
-    "writingStyle": ["Formal", "Warm", "Professional"]
+    "understanding": [
+      "Excellent",
+      "Good",
+      "Needs Support"
+    ],
+    "participation": [
+      "Active",
+      "Moderate",
+      "Passive"
+    ],
+    "focus": [
+      "Excellent",
+      "Moderate",
+      "Needs Reminding"
+    ],
+    "taskCompletion": [
+      "Complete",
+      "Mostly Complete",
+      "Partial"
+    ],
+    "confidence": [
+      "Confident",
+      "Developing",
+      "Needs Encouragement"
+    ],
+    "challenges": [
+      "Needs More Practice",
+      "Exploration",
+      "Focus",
+      "Reading Adaptation",
+      "Communication",
+      "Following Instructions"
+    ],
+    "strengths": [
+      "Creative",
+      "Curious",
+      "Independent",
+      "Persistent",
+      "Fast Learner",
+      "Collaborative"
+    ],
+    "reportLength": [
+      "Short",
+      "Standard",
+      "Detailed"
+    ],
+    "writingStyle": [
+      "Formal",
+      "Warm",
+      "Professional"
+    ]
   },
   "buttons": {
     "generate": "Generate Report",

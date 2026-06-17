@@ -1,7 +1,6 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import { Button } from "@/components/ui/button";
 
 interface Props {
   report: string;
@@ -31,7 +30,7 @@ export function ReportPreview({ report, onChange, onRegenerate, onPolish, onRese
   return (
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between mb-3">
-        <p className="text-[13px] font-semibold uppercase tracking-widest text-[#6B7280]">
+        <p className="text-[13px] font-semibold uppercase tracking-widest text-muted-foreground">
           {t.preview.title}
         </p>
         <div className="flex items-center gap-1">
@@ -48,13 +47,13 @@ export function ReportPreview({ report, onChange, onRegenerate, onPolish, onRese
           <textarea
             value={report}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full h-full min-h-[560px] p-6 text-[15px] leading-[1.9] font-[var(--font-geist-mono)] bg-white border border-[#E7E5E4] rounded-xl text-[#171717] resize-none outline-none focus:ring-1 focus:ring-[#A78BFA]/30 transition-subtle"
+            className="w-full h-full min-h-[560px] p-6 text-[15px] leading-[1.9] font-[var(--font-geist-mono)] bg-background border border-border rounded-xl text-foreground resize-none outline-none focus:ring-1 focus:ring-ring/30 transition-subtle"
             spellCheck={false}
           />
         </div>
       ) : (
-        <div className="flex-1 flex items-center justify-center min-h-[560px] bg-white border border-dashed border-[#E7E5E4] rounded-xl">
-          <p className="text-[13px] text-[#9CA3AF] text-center max-w-[240px] leading-relaxed">
+        <div className="flex-1 flex items-center justify-center min-h-[560px] bg-background border border-dashed border-border rounded-xl">
+          <p className="text-[13px] text-muted-foreground text-center max-w-[240px] leading-relaxed">
             {t.preview.empty}
           </p>
         </div>
@@ -81,8 +80,8 @@ function ActionBtn({
       disabled={disabled}
       className={`h-7 px-2.5 text-[12px] font-medium rounded-md transition-subtle disabled:opacity-40 disabled:cursor-not-allowed ${
         variant === "outline"
-          ? "border border-[#E7E5E4] bg-white text-[#6B7280] hover:text-[#171717] hover:border-[#171717]"
-          : "text-[#9CA3AF] hover:text-[#6B7280]"
+          ? "border border-border bg-card text-muted-foreground hover:text-foreground hover:border-foreground"
+          : "text-muted-foreground hover:text-foreground"
       }`}
     >
       {children}

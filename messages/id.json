@@ -1,6 +1,6 @@
 {
   "nav": {
-    "title": "Generator Laporan Siswa"
+    "title": "Generator Laporan Siswa Timedoor Academy - Jambi"
   },
   "form": {
     "studentInfo": "Informasi Siswa",
@@ -24,9 +24,17 @@
     "challenges": "Tantangan",
     "strengths": "Kekuatan",
     "reportLength": "Panjang Laporan",
-    "reportLengthDesc": ["~1 paragraf", "~2 paragraf", "~3 paragraf"],
+    "reportLengthDesc": [
+      "~1 paragraf",
+      "~2 paragraf",
+      "~3 paragraf"
+    ],
     "writingStyle": "Gaya Penulisan",
-    "writingStyleDesc": ["Terstruktur", "Personal", "Seimbang"],
+    "writingStyleDesc": [
+      "Terstruktur",
+      "Personal",
+      "Seimbang"
+    ],
     "multiSelectHint": "boleh pilih lebih dari 1",
     "placeholders": {
       "studentName": "cth. Aira Putri",
@@ -38,15 +46,57 @@
     }
   },
   "options": {
-    "understanding": ["Sangat Baik", "Baik", "Perlu Dukungan"],
-    "participation": ["Aktif", "Cukup Aktif", "Pasif"],
-    "focus": ["Sangat Fokus", "Cukup Fokus", "Perlu Diingatkan"],
-    "taskCompletion": ["Selesai", "Hampir Selesai", "Sebagian"],
-    "confidence": ["Percaya Diri", "Berkembang", "Perlu Dorongan"],
-    "challenges": ["Perlu Latihan Lebih", "Eksplorasi", "Fokus", "Adaptasi Membaca", "Komunikasi", "Mengikuti Instruksi"],
-    "strengths": ["Kreatif", "Rasa Ingin Tahu Tinggi", "Mandiri", "Pantang Menyerah", "Cepat Belajar", "Kolaboratif"],
-    "reportLength": ["Singkat", "Standar", "Mendetail"],
-    "writingStyle": ["Formal", "Hangat", "Profesional"]
+    "understanding": [
+      "Sangat Baik",
+      "Baik",
+      "Perlu Dukungan"
+    ],
+    "participation": [
+      "Aktif",
+      "Cukup Aktif",
+      "Pasif"
+    ],
+    "focus": [
+      "Sangat Fokus",
+      "Cukup Fokus",
+      "Perlu Diingatkan"
+    ],
+    "taskCompletion": [
+      "Selesai",
+      "Hampir Selesai",
+      "Sebagian"
+    ],
+    "confidence": [
+      "Percaya Diri",
+      "Berkembang",
+      "Perlu Dorongan"
+    ],
+    "challenges": [
+      "Perlu Latihan Lebih",
+      "Eksplorasi",
+      "Fokus",
+      "Adaptasi Membaca",
+      "Komunikasi",
+      "Mengikuti Instruksi"
+    ],
+    "strengths": [
+      "Kreatif",
+      "Rasa Ingin Tahu Tinggi",
+      "Mandiri",
+      "Pantang Menyerah",
+      "Cepat Belajar",
+      "Kolaboratif"
+    ],
+    "reportLength": [
+      "Singkat",
+      "Standar",
+      "Mendetail"
+    ],
+    "writingStyle": [
+      "Formal",
+      "Hangat",
+      "Profesional"
+    ]
   },
   "buttons": {
     "generate": "Buat Laporan",
