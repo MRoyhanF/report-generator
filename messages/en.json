@@ -36,6 +36,9 @@
       "Balanced"
     ],
     "multiSelectHint": "can select multiple",
+    "addChallenge": "Add another challenge...",
+    "addStrength": "Add another strength...",
+    "addButton": "+ Add",
     "placeholders": {
       "studentName": "e.g. Aira Putri",
       "teacherName": "e.g. Ms. Sarah",
@@ -100,8 +103,10 @@
   },
   "buttons": {
     "generate": "Generate Report",
+    "generating": "Generating...",
     "regenerate": "Regenerate",
-    "polish": "✨ Polish Writing",
+    "polish": "✨ Paraphrase",
+    "paraphrasing": "Paraphrasing",
     "copy": "Copy",
     "download": "Download",
     "reset": "Reset"
@@ -113,5 +118,27 @@
   },
   "validation": {
     "fillRequired": "Fill in all required fields to generate a report."
+  },
+  "paraphraseModal": {
+    "title": "Paraphrase",
+    "subtitle": "Adjust your generated report",
+    "styleLabel": "Writing Style",
+    "lengthLabel": "Output Length",
+    "notesLabel": "Revision Notes",
+    "notesOptional": "(optional)",
+    "notesPlaceholder": "e.g. Make the challenges section feel more positive, emphasise that the student showed improvement by the end of the period...",
+    "styleOptions": {
+      "formal": "Formal",
+      "warm": "Warm",
+      "professional": "Professional",
+      "keep": "Keep Style"
+    },
+    "lengthOptions": {
+      "shorter": "More Concise",
+      "same": "Same Length",
+      "longer": "More Detailed"
+    },
+    "cancel": "Cancel",
+    "confirm": "Paraphrase Now"
   }
 }

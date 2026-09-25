@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { ReportForm } from "@/components/ReportForm";
 import { ReportPreview } from "@/components/ReportPreview";
+import { ParaphraseModal } from "@/components/ParaphraseModal";
 import { useI18n } from "@/lib/i18n";
-import { ReportFormData, DEFAULT_OBSERVATIONS } from "@/types";
+import { ReportFormData, DEFAULT_OBSERVATIONS, ParaphraseOptions } from "@/types";
 
 const defaultValues: ReportFormData = {
   studentName: "",
@@ -38,6 +39,8 @@ function PageContent() {
   const [formData, setFormData] = useState<ReportFormData>(defaultValues);
   const [report, setReport] = useState("");
   const [loading, setLoading] = useState(false);
+  const [paraphrasing, setParaphrasing] = useState(false);
+  const [showParaphraseModal, setShowParaphraseModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleGenerate() {
@@ -56,6 +59,27 @@ function PageContent() {
       setError(e instanceof Error ? e.message : "Failed to generate report");
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleParaphrase(options: ParaphraseOptions) {
+    if (!report.trim()) return;
+    setShowParaphraseModal(false);
+    setParaphrasing(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/paraphrase", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: report, locale, options }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error ?? "Failed to paraphrase report");
+      setReport(json.report);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to paraphrase");
+    } finally {
+      setParaphrasing(false);
     }
   }
 
@@ -85,7 +109,7 @@ function PageContent() {
                   disabled={!valid || loading}
                   className="w-full h-10 text-[14px] font-medium bg-foreground text-background rounded-xl transition-subtle hover:opacity-80 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  {loading ? "Generating..." : t.buttons.generate}
+                  {loading ? t.buttons.generating : t.buttons.generate}
                 </button>
                 {!valid && (
                   <p className="mt-2 text-[12px] text-[#9CA3AF] text-center">
@@ -106,13 +130,21 @@ function PageContent() {
                 report={report}
                 onChange={setReport}
                 onRegenerate={handleGenerate}
-                onPolish={handleGenerate}
+                onPolish={() => setShowParaphraseModal(true)}
                 onReset={handleReset}
+                paraphrasing={paraphrasing}
               />
             </div>
           </section>
         </div>
       </main>
+
+      {/* Paraphrase modal — portal at page level */}
+      <ParaphraseModal
+        isOpen={showParaphraseModal}
+        onClose={() => setShowParaphraseModal(false)}
+        onConfirm={handleParaphrase}
+      />
     </div>
   );
 }

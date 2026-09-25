@@ -36,6 +36,9 @@
       "Seimbang"
     ],
     "multiSelectHint": "boleh pilih lebih dari 1",
+    "addChallenge": "Tambahkan tantangan lainnya...",
+    "addStrength": "Tambahkan kekuatan lainnya...",
+    "addButton": "+ Tambah",
     "placeholders": {
       "studentName": "cth. Aira Putri",
       "teacherName": "cth. Ms. Sarah",
@@ -100,8 +103,10 @@
   },
   "buttons": {
     "generate": "Buat Laporan",
+    "generating": "Membuat...",
     "regenerate": "Buat Ulang",
-    "polish": "✨ Rapikan Bahasa",
+    "polish": "✨ Parafrase Ulang",
+    "paraphrasing": "Memparafrase",
     "copy": "Salin",
     "download": "Unduh",
     "reset": "Reset"
@@ -113,5 +118,27 @@
   },
   "validation": {
     "fillRequired": "Isi semua kolom wajib untuk membuat laporan."
+  },
+  "paraphraseModal": {
+    "title": "Parafrase Ulang",
+    "subtitle": "Sesuaikan laporan yang sudah dibuat",
+    "styleLabel": "Gaya Penulisan",
+    "lengthLabel": "Panjang Output",
+    "notesLabel": "Catatan Revisi",
+    "notesOptional": "(opsional)",
+    "notesPlaceholder": "cth. Tolong sesuaikan bagian tantangan agar terasa lebih positif, atau tambahkan penekanan bahwa siswa sudah mulai ada perkembangan di akhir periode...",
+    "styleOptions": {
+      "formal": "Formal",
+      "warm": "Hangat",
+      "professional": "Profesional",
+      "keep": "Tetap Sama"
+    },
+    "lengthOptions": {
+      "shorter": "Lebih Ringkas",
+      "same": "Tetap Sama",
+      "longer": "Lebih Detail"
+    },
+    "cancel": "Batal",
+    "confirm": "Parafrase Sekarang"
   }
 }

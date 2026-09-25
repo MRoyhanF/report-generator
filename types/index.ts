@@ -22,8 +22,10 @@ export interface Observations {
   focus: ObsIndex | null;
   taskCompletion: ObsIndex | null;
   confidence: ObsIndex | null;
-  challenges: number[];   // indices into the challenges list
-  strengths: number[];    // indices into the strengths list
+  challenges: number[];        // indices into the predefined challenges list
+  strengths: number[];         // indices into the predefined strengths list
+  customChallenges: string[];  // free-text challenges added by teacher
+  customStrengths: string[];   // free-text strengths added by teacher
   teacherNotes: string;
   reportLength: ReportLength;
   writingStyle: WritingStyle;
@@ -39,7 +41,15 @@ export const DEFAULT_OBSERVATIONS: Observations = {
   confidence: null,
   challenges: [],
   strengths: [],
+  customChallenges: [],
+  customStrengths: [],
   teacherNotes: "",
   reportLength: "standard",
   writingStyle: "professional",
 };
+
+export interface ParaphraseOptions {
+  style: "formal" | "warm" | "professional" | "keep";
+  lengthAdjust: "shorter" | "same" | "longer";
+  revisionNotes: string;
+}

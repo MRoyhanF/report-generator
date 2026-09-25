@@ -53,27 +53,27 @@ const STRENGTHS_ID = [
 ];
 
 const LENGTH_INSTRUCTION: Record<string, string> = {
-  short: "Keep the report concise — 100–150 words total.",
-  standard: "Write a standard-length report — 150–220 words total.",
-  detailed: "Write a thorough, detailed report — 220–300 words total.",
+  short: "Keep the report concise — around 100–150 words total. Focus on the 2–3 most notable observations.",
+  standard: "Write a balanced report — around 150–220 words. Cover all observations naturally without rushing.",
+  detailed: "Write a rich, thorough report — around 220–300 words. Expand each section with texture and specific detail.",
 };
 
 const LENGTH_INSTRUCTION_ID: Record<string, string> = {
-  short: "Buat laporan yang ringkas — total 100–150 kata.",
-  standard: "Tulis laporan dengan panjang standar — total 150–220 kata.",
-  detailed: "Tulis laporan yang lengkap dan mendetail — total 220–300 kata.",
+  short: "Buat laporan yang ringkas — sekitar 100–150 kata. Fokus pada 2–3 observasi yang paling menonjol.",
+  standard: "Tulis laporan yang seimbang — sekitar 150–220 kata. Sampaikan semua observasi secara mengalir.",
+  detailed: "Tulis laporan yang kaya dan mendetail — sekitar 220–300 kata. Kembangkan setiap bagian dengan tekstur dan detail yang spesifik.",
 };
 
 const STYLE_INSTRUCTION: Record<string, string> = {
-  formal: "Use a formal, academic tone.",
-  warm: "Use a warm, friendly, and encouraging tone.",
-  professional: "Use a professional yet approachable tone.",
+  formal: "Use a formal, structured academic tone. Sentences should be complete and precise.",
+  warm: "Use a warm, personal, and encouraging tone — as if speaking directly to a parent who cares deeply about their child.",
+  professional: "Use a professional yet human tone — clear and confident, but not cold.",
 };
 
 const STYLE_INSTRUCTION_ID: Record<string, string> = {
-  formal: "Gunakan nada yang formal dan akademis.",
-  warm: "Gunakan nada yang hangat, ramah, dan memotivasi.",
-  professional: "Gunakan nada yang profesional namun tetap mudah dipahami.",
+  formal: "Gunakan nada formal dan akademis. Kalimat harus lengkap dan presisi.",
+  warm: "Gunakan nada yang hangat, personal, dan memotivasi — seolah-olah berbicara langsung kepada orang tua yang peduli.",
+  professional: "Gunakan nada profesional namun tetap terasa manusiawi — jelas dan percaya diri, tapi tidak terasa dingin.",
 };
 
 export function buildPrompt(data: ReportFormData, locale: "id" | "en" = "en"): string {
@@ -89,8 +89,18 @@ export function buildPrompt(data: ReportFormData, locale: "id" | "en" = "en"): s
   const focus = data.focus !== null ? obsLabels.focus[data.focus] : "-";
   const taskCompletion = data.taskCompletion !== null ? obsLabels.taskCompletion[data.taskCompletion] : "-";
   const confidence = data.confidence !== null ? obsLabels.confidence[data.confidence] : "-";
-  const challenges = data.challenges.length > 0 ? data.challenges.map((i) => challengeLabels[i]).join(", ") : (isId ? "Tidak ada" : "None");
-  const strengths = data.strengths.length > 0 ? data.strengths.map((i) => strengthLabels[i]).join(", ") : (isId ? "Tidak ada" : "None");
+  const allChallenges = [
+    ...data.challenges.map((i) => challengeLabels[i]),
+    ...(data.customChallenges ?? []),
+  ];
+  const allStrengths = [
+    ...data.strengths.map((i) => strengthLabels[i]),
+    ...(data.customStrengths ?? []),
+  ];
+  const challenges = allChallenges.length > 0 ? allChallenges.join(", ") : (isId ? "Tidak ada" : "None");
+  const strengths = allStrengths.length > 0 ? allStrengths.join(", ") : (isId ? "Tidak ada" : "None");
+
+  const hasTeacherNotes = data.teacherNotes.trim().length > 0;
   const teacherNotes = data.teacherNotes.trim() || (isId ? "Tidak ada" : "None");
 
   const lengthInstruction = lengthMap[data.reportLength] ?? lengthMap.standard;
@@ -106,28 +116,43 @@ export function buildPrompt(data: ReportFormData, locale: "id" | "en" = "en"): s
     ? { name: "Nama Siswa", level: "Kelas / Level", teacher: "Teacher", period: "Periode" }
     : { name: "Student Name", level: "Level / Class", teacher: "Teacher", period: "Report Period" };
 
-  return `You are an expert educational report writer with years of classroom experience.
+  const teacherNotesGuidance = hasTeacherNotes
+    ? (isId
+        ? `PENTING — Teacher Notes adalah panduan utama untuk nada dan fokus laporan ini. Catatan: "${teacherNotes}". Gunakan ini sebagai titik awal atau benang merah yang mewarnai keseluruhan laporan. Jangan kutip langsung, tapi biarkan maknanya mengalir secara organik ke dalam narasi.`
+        : `IMPORTANT — Teacher Notes are the primary shaping reference for this report's focus and tone. Note: "${teacherNotes}". Use this as the lens through which you interpret the observations. Do not quote it directly — instead, let its meaning flow organically through the narrative.`)
+    : (isId
+        ? "Tidak ada catatan khusus dari teacher."
+        : "No special teacher notes provided.");
 
-Task: Write a student progress report using ONLY the data provided. Do not add facts that are not in the input.
+  return `You are a seasoned teacher and expert educational report writer. You write reports that feel genuinely personal, not generated from a template.
+
+${teacherNotesGuidance}
+
+Your task: Write a student progress report using ONLY the data provided. Do not invent facts.
 
 Tone & Style:
 - ${styleInstruction}
 - ${lengthInstruction}
-- Write as a real teacher would — natural, human, and varied.
-- Each report must feel unique. Avoid formulaic or repetitive sentence patterns.
-- Start the Learning Progress section with a different opening each time (do NOT always begin with the student's name).
-- Mix sentence lengths: some short and punchy, some longer and descriptive.
-- Challenges must sound like growth opportunities, never criticism.
-- Parent recommendation must be practical and specific to the topic.
-- Do not mention AI, scores, or grades.
+- Write the way a real, experienced teacher would speak — thoughtful, nuanced, and human.
+- NEVER start two consecutive sentences the same way.
+- NEVER use the student's name more than twice in any paragraph.
+- Vary your vocabulary deliberately: if you used "demonstrates" once, use "shows", "reveals", "reflects" next.
+- Mix sentence lengths naturally: short punchy sentences next to longer flowing ones.
+- Observations should feel woven into a story, not listed as facts.
+- Challenges must feel like natural next steps on a journey, not shortcomings.
+- Strengths should be specific and vivid — tie them directly to the topic or project, not just generic praise.
+- The parent recommendation must feel personally crafted for this child's specific topic and situation.
+- Do not mention AI, scores, or numeric grades.
 - Output language: ${outputLang}
 
-Variation rules (rotate these):
-- Vary how you open the Learning Progress paragraph: sometimes start with an observation, sometimes with the topic, sometimes with a quality the student showed.
-- Vary how challenges are framed: "continuing to develop...", "with more opportunities to...", "as [name] grows more comfortable with..."
-- Vary strength descriptions: be specific, not generic. Reference the topic or project when relevant.
+Structural variety rules:
+- Learning Progress: Never open with the student's full name. Start with an observation, a quality, the topic, or a scene from class. Weave all five observation dimensions (understanding, participation, focus, task completion, confidence) naturally — not as a list.
+- Activity section: Be vivid and concrete. What did the student actually do? What did it look like in class?
+- Challenges: Frame each one as "where the journey continues" — forward-looking, not backward-looking. Each challenge gets exactly one sentence with a different grammatical structure.
+- Strengths: Each strength gets one sentence. Connect it specifically to the topic/project — not just a label.
+- Recommendation: Sound like a teacher personally advising a parent, not a printed pamphlet.
 
-Output this exact structure (section headers as-is, no markdown, no bold, no bullet points):
+Output this exact structure (headers exactly as shown, plain text, no markdown, no asterisks, no bullet points, no numbering in challenges/strengths):
 
 ${header}
 
@@ -138,19 +163,19 @@ ${labels.teacher}: ${data.teacherName}
 ${labels.period}: ${data.reportPeriod}
 
 ${sections.progress}
-[2–4 sentences of flowing prose. Weave in understanding, participation, focus, task completion, and confidence naturally. If teacher notes are provided, integrate them organically — do not append them as a separate sentence.]
+[Flowing prose only. 2–4 sentences depending on length setting. Weave all five dimensions naturally. If teacher notes exist, let them guide what gets emphasized.]
 
 ${sections.activity}
-[2–3 sentences. Describe what the student actually did in the project/topic. Be specific and concrete.]
+[2–3 vivid, concrete sentences about what the student did in the project/topic.]
 
 ${sections.challenges}
-[One sentence per challenge, framed as a growth opportunity. Vary the sentence structure across items.]
+[Each challenge on its own SEPARATE LINE — no blank lines between them, no numbering, no dashes, no bullet points. Each sentence uses a completely different grammatical opening. Framed as forward-looking growth opportunities, never as criticism.]
 
 ${sections.strengths}
-[One sentence per strength. Be specific — connect each strength to how it shows up in this student's work.]
+[Each strength on its own SEPARATE LINE — no blank lines between them, no numbering, no dashes, no bullet points. Each sentence is vivid and specific — connect to the topic or project when possible.]
 
 ${sections.recommendation}
-[One paragraph, 2–3 sentences. Give parents a concrete, topic-specific action they can do at home.]
+[1 paragraph, 2–3 sentences. Personally crafted advice for this specific child and topic.]
 
 ---
 INPUT DATA
@@ -170,5 +195,95 @@ Challenges: ${challenges}
 Strengths: ${strengths}
 Teacher Notes: ${teacherNotes}
 
-Write the report now. Make it feel like it was written by a thoughtful, experienced teacher — not a template.`;
+Write the report now. Make it feel like only this teacher could have written this — about only this student.`;
+}
+
+// ── Paraphrase prompt ─────────────────────────────────────────────────────────
+
+import { ParaphraseOptions } from "@/types";
+
+const STYLE_INSTR_EN: Record<string, string> = {
+  formal:       "Shift the tone to be more formal and academic — structured, precise, and composed.",
+  warm:         "Shift the tone to be warmer, more personal, and encouraging — as if speaking directly to a parent who cares deeply.",
+  professional: "Shift the tone to be professional yet human — confident and clear, but never cold.",
+  keep:         "Maintain the existing writing style and tone.",
+};
+
+const STYLE_INSTR_ID: Record<string, string> = {
+  formal:       "Ubah nada menjadi lebih formal dan akademis — terstruktur, presisi, dan tenang.",
+  warm:         "Ubah nada menjadi lebih hangat, personal, dan memotivasi — seolah berbicara langsung kepada orang tua yang peduli.",
+  professional: "Ubah nada menjadi profesional namun tetap terasa manusiawi — percaya diri dan jelas, tapi tidak dingin.",
+  keep:         "Pertahankan gaya dan nada penulisan yang ada.",
+};
+
+const LENGTH_INSTR_EN: Record<string, string> = {
+  shorter: "Make the report noticeably more concise — aim for 20–30% fewer words while keeping all essential information.",
+  same:    "Keep the overall length approximately the same.",
+  longer:  "Expand the report with richer detail and texture — aim for 20–30% more words, adding depth to each section.",
+};
+
+const LENGTH_INSTR_ID: Record<string, string> = {
+  shorter: "Buat laporan menjadi lebih ringkas secara signifikan — targetkan pengurangan 20–30% kata sambil menjaga semua informasi penting.",
+  same:    "Pertahankan panjang keseluruhan kira-kira sama.",
+  longer:  "Kembangkan laporan dengan detail yang lebih kaya — targetkan penambahan 20–30% kata, perdalam setiap bagian.",
+};
+
+export function buildParaphrasePrompt(
+  text: string,
+  locale: "id" | "en",
+  options: Partial<ParaphraseOptions> = {}
+): string {
+  const isId = locale === "id";
+  const { style = "keep", lengthAdjust = "same", revisionNotes = "" } = options;
+
+  const styleInstr = isId ? STYLE_INSTR_ID[style] : STYLE_INSTR_EN[style];
+  const lengthInstr = isId ? LENGTH_INSTR_ID[lengthAdjust] : LENGTH_INSTR_EN[lengthAdjust];
+  const hasNotes = revisionNotes.trim().length > 0;
+  const notesBlock = hasNotes
+    ? (isId
+        ? `\nCATATAN REVISI DARI TEACHER (WAJIB DIINTEGRASIKAN): "${revisionNotes.trim()}"\nIntegrasikan poin-poin ini secara alami ke dalam narasi — jangan hanya menambahkan sebagai kalimat terpisah di akhir.`
+        : `\nTEACHER REVISION NOTES (MUST BE INTEGRATED): "${revisionNotes.trim()}"\nWeave these points naturally into the narrative — do not simply append as a separate sentence at the end.`)
+    : "";
+
+  return isId
+    ? `Kamu adalah editor profesional laporan pendidikan. Kamu diberi laporan perkembangan siswa yang mungkin sudah diedit sebagian oleh teacher.
+
+PREFERENSI PARAFRASE:
+• Gaya: ${styleInstr}
+• Panjang: ${lengthInstr}${notesBlock}
+
+ATURAN KETAT:
+1. JAGA semua fakta dan data PERSIS sama — nama siswa, teacher, kelas, dan periode tidak boleh berubah
+2. PERTAHANKAN semua header bagian (contoh: "Perkembangan Belajar", "Tantangan", dll.) persis seperti aslinya
+3. PERTAHANKAN blok informasi siswa persis seperti aslinya
+4. Variasikan pembukaan kalimat — tidak ada dua kalimat berurutan yang dimulai dengan cara yang sama
+5. Buat bahasa terasa alami seperti ditulis guru berpengalaman yang sungguh peduli
+6. Perbaiki kalimat canggung atau terasa seperti template
+7. Output dalam Bahasa Indonesia
+8. Teks biasa saja — tidak ada markdown, tidak ada cetak tebal, tidak ada tanda bintang
+
+Kembalikan HANYA laporan yang sudah diperbaiki, tidak ada penjelasan lain.
+
+LAPORAN YANG PERLU DIPARAFRASE:
+${text}`
+    : `You are a professional editor of educational reports. You have been given a student progress report that may have been partially edited by the teacher.
+
+PARAPHRASE PREFERENCES:
+• Style: ${styleInstr}
+• Length: ${lengthInstr}${notesBlock}
+
+STRICT RULES:
+1. KEEP all facts and data EXACTLY the same — student name, teacher, class, and period must not change
+2. PRESERVE all section headers (e.g. "Learning Progress", "Challenges", etc.) exactly as they are
+3. PRESERVE the student information block exactly as it is
+4. Vary sentence openings — no two consecutive sentences should begin in the same way
+5. Make the language feel natural, as if written by a thoughtful, experienced teacher who genuinely cares
+6. Fix any awkward or template-sounding phrasing
+7. Output in English
+8. Plain text only — no markdown, no bold, no asterisks
+
+Return ONLY the improved report, nothing else.
+
+REPORT TO PARAPHRASE:
+${text}`;
 }

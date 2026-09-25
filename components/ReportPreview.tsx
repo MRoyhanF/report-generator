@@ -8,9 +8,10 @@ interface Props {
   onRegenerate: () => void;
   onPolish: () => void;
   onReset: () => void;
+  paraphrasing?: boolean;
 }
 
-export function ReportPreview({ report, onChange, onRegenerate, onPolish, onReset }: Props) {
+export function ReportPreview({ report, onChange, onRegenerate, onPolish, onReset, paraphrasing }: Props) {
   const { t } = useI18n();
 
   function handleCopy() {
@@ -34,8 +35,10 @@ export function ReportPreview({ report, onChange, onRegenerate, onPolish, onRese
           {t.preview.title}
         </p>
         <div className="flex items-center gap-1">
-          <ActionBtn onClick={onPolish} disabled={!report}>{t.buttons.polish}</ActionBtn>
-          <ActionBtn onClick={onRegenerate} disabled={!report}>{t.buttons.regenerate}</ActionBtn>
+          <ActionBtn onClick={onPolish} disabled={!report || paraphrasing} loading={paraphrasing}>
+            {paraphrasing ? t.buttons.paraphrasing : t.buttons.polish}
+          </ActionBtn>
+          <ActionBtn onClick={onRegenerate} disabled={!report || paraphrasing}>{t.buttons.regenerate}</ActionBtn>
           <ActionBtn onClick={handleCopy} disabled={!report}>{t.buttons.copy}</ActionBtn>
           <ActionBtn onClick={handleDownload} disabled={!report}>{t.buttons.download}</ActionBtn>
           <ActionBtn onClick={onReset} variant="ghost">{t.buttons.reset}</ActionBtn>
@@ -50,6 +53,14 @@ export function ReportPreview({ report, onChange, onRegenerate, onPolish, onRese
             className="w-full h-full min-h-[560px] p-6 text-[15px] leading-[1.9] font-[var(--font-geist-mono)] bg-background border border-border rounded-xl text-foreground resize-none outline-none focus:ring-1 focus:ring-ring/30 transition-subtle"
             spellCheck={false}
           />
+          {paraphrasing && (
+            <div className="absolute inset-0 rounded-xl bg-background/70 backdrop-blur-[2px] flex items-center justify-center">
+              <div className="flex items-center gap-2.5 text-[13px] font-medium text-foreground">
+                <span className="inline-block w-4 h-4 border-2 border-foreground/30 border-t-foreground rounded-full animate-spin" />
+                {t.buttons.paraphrasing}...
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className="flex-1 flex items-center justify-center min-h-[560px] bg-background border border-dashed border-border rounded-xl">
@@ -66,11 +77,13 @@ function ActionBtn({
   children,
   onClick,
   disabled,
+  loading,
   variant = "outline",
 }: {
   children: React.ReactNode;
   onClick: () => void;
   disabled?: boolean;
+  loading?: boolean;
   variant?: "outline" | "ghost";
 }) {
   return (
@@ -79,6 +92,8 @@ function ActionBtn({
       onClick={onClick}
       disabled={disabled}
       className={`h-7 px-2.5 text-[12px] font-medium rounded-md transition-subtle disabled:opacity-40 disabled:cursor-not-allowed ${
+        loading ? "opacity-70" : ""
+      } ${
         variant === "outline"
           ? "border border-border bg-card text-muted-foreground hover:text-foreground hover:border-foreground"
           : "text-muted-foreground hover:text-foreground"

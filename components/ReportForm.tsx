@@ -155,13 +155,10 @@ export function ReportForm({ values, onChange }: Props) {
         <Textarea
           id="teacherNotes"
           value={values.teacherNotes}
-          onChange={(e) => set("teacherNotes", e.target.value.slice(0, 150))}
+          onChange={(e) => set("teacherNotes", e.target.value)}
           placeholder={t.form.teacherNotesPlaceholder}
           className="text-[13px] border-border bg-background rounded-lg placeholder:text-muted-foreground resize-none transition-subtle hover:border-primary/50 focus-visible:ring-primary/30 min-h-20"
         />
-        <p className="text-[12px] text-muted-foreground text-right">
-          {values.teacherNotes.length}/150
-        </p>
       </div>
 
       <Divider />

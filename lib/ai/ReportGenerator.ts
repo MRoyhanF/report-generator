@@ -1,5 +1,5 @@
-import { ReportFormData } from "@/types";
-import { buildPrompt } from "@/lib/prompt";
+import { ReportFormData, ParaphraseOptions } from "@/types";
+import { buildPrompt, buildParaphrasePrompt } from "@/lib/prompt";
 import { buildReport } from "@/lib/template";
 import { AIProvider } from "./AIProvider";
 import { GroqProvider } from "./GroqProvider";
@@ -9,6 +9,10 @@ const SYSTEM_PROMPT = `You are an expert educational report writer.
 Generate student progress reports that are professional, warm, and constructive.
 Never mention AI, scores, or grades. Base content strictly on the provided data.
 Output plain text only — no markdown, no JSON.`;
+
+const PARAPHRASE_SYSTEM_PROMPT = `You are a professional educational editor.
+Your job is to improve the language of student progress reports while preserving all facts.
+Output plain text only — no markdown, no bold, no asterisks.`;
 
 function getTemperature(style: ReportFormData["writingStyle"]): number {
   if (style === "formal") return 0.5;
@@ -46,4 +50,29 @@ export async function generateReport(
   // Fallback to template-based generation if AI fails
   console.warn("[ReportGenerator] AI failed, using template fallback");
   return buildReport(data, locale);
+}
+
+export async function paraphraseReport(
+  text: string,
+  locale: Locale = "en",
+  options: Partial<ParaphraseOptions> = {},
+  provider: AIProvider = new GroqProvider()
+): Promise<string> {
+  if (!text.trim()) throw new Error("No text to paraphrase");
+
+  const userPrompt = buildParaphrasePrompt(text, locale, options);
+
+  const response = await provider.generate({
+    systemPrompt: PARAPHRASE_SYSTEM_PROMPT,
+    userPrompt,
+    temperature: 0.75,
+    maxTokens: 1200,
+  });
+
+  if (response.success && response.text) {
+    return response.text;
+  }
+
+  console.warn("[ReportGenerator] Paraphrase failed, returning original");
+  return text;
 }
